@@ -9,8 +9,8 @@ import csv
 import itertools
 import json
 import os
-os.environ['PYTHONPATH'] += ":/content/models"
-sys.path.append("/content/models")
+# os.environ['PYTHONPATH'] += ":/content/models"
+# sys.path.append("/content/models")
 import pickle
 import random
 import time

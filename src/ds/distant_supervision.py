@@ -1,5 +1,7 @@
 
 """Distant supervision: from ROCStories to ATOMIC(/COMET) knowledge tuples."""
+from accelerate import Accelerator
+accelerator = Accelerator()
 
 import sys
 import ast
@@ -20,6 +22,8 @@ from tqdm import tqdm
 from transformers import GPT2LMHeadModel, GPT2Tokenizer
 from rouge.rouge import rouge_n_sentence_level
 import torch
+
+
 
 #local
 sys.path.insert(1, '../utils')

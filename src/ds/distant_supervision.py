@@ -1,7 +1,6 @@
 
 """Distant supervision: from ROCStories to ATOMIC(/COMET) knowledge tuples."""
-from accelerate import Accelerator
-accelerator = Accelerator()
+
 
 import sys
 import ast
@@ -23,6 +22,8 @@ from transformers import GPT2LMHeadModel, GPT2Tokenizer
 from rouge.rouge import rouge_n_sentence_level
 import torch
 
+from accelerate import Accelerator
+accelerator = Accelerator()
 
 
 #local
@@ -64,7 +65,9 @@ parser.add_argument(
 )
 parser.add_argument(
         "--device",
-        default="cuda",
+        # default="cuda",
+        ## Nanxi
+        default=accelerator.device,
         type=str,
         help="Device to put comet model on. Options: cuda / cpu",
 )

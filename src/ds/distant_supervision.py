@@ -15,6 +15,7 @@ import pickle
 import random
 import time
 import math
+print("hello world")
 import nltk 
 import en_core_web_sm
 import numpy as np

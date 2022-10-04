@@ -455,7 +455,7 @@ def main(args):
 if __name__ == "__main__":
     args = parser.parse_args()
     print("====Input Arguments====")
-    print(json.dumps(vars(args), indent=2, sort_keys=True))
+    #print(json.dumps(vars(args), indent=2, sort_keys=True))
     print("=======================")
     main(args)
 

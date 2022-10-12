@@ -532,6 +532,8 @@ def make_model(opt, n_vocab, n_ctx, state_dict):
         opt, n_vocab, n_ctx, None, load=False,
         return_acts=True, return_probs=False)
     model.load_state_dict(state_dict)
+    print("#################DEVICE ###########################")
+    print(cfg.device)
     model.to(cfg.device)
     model.eval()
 

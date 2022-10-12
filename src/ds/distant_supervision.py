@@ -9,14 +9,12 @@ import csv
 import itertools
 import json
 import os
-# os.environ['PYTHONPATH'] += ":/content/models"
-# sys.path.append("/content/models")
 import pickle
 import random
 import time
 import math
-print("hello world")
 import nltk 
+#nltk.download('punkt')
 import en_core_web_sm
 import numpy as np
 import spacy
@@ -218,11 +216,13 @@ def clean_r(r):
 
 model = GPT2LMHeadModel.from_pretrained('gpt2')
 model.eval()
+model = model.to("cuda" if torch.cuda.is_available() else "cpu")
 tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
 
 def score_gpt2(sentence, tokenizer):
     tokenize_input = tokenizer.tokenize(sentence)
     tensor_input = torch.tensor([[tokenizer.convert_tokens_to_ids(tokenizer.special_tokens_map['eos_token'])] + tokenizer.convert_tokens_to_ids(tokenize_input)])
+    tensor_input = tensor_input.to("cuda" if torch.cuda.is_available() else "cpu")
     loss = model(tensor_input, labels=tensor_input) 
     return -loss[0] * len(tokenize_input) 
 
@@ -379,8 +379,13 @@ def format_baseline(retrievals,kg_type='atomic'):
 def main(args):
     comet_model = None
     if args.comet:
+        #nanxi testing
+       #print(os.path)
        comet_location = os.path.join(args.comet_location,args.kg_type + '_pretrained_model.th')
+       print(comet_location)
        comet_model = AtomicModel(comet_location, vocabulary_path="../../data/")
+       print(comet_model)
+       #comet_model.to(device)
     stories = read_jsonl_lines('../../data/' + args.split + "-processed.jsonl")
     stories = stories[args.s_index:args.e_index]
     names = {l.replace("\n", "").lower() for l in open("names_list.txt").readlines()}
